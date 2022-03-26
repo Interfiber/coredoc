@@ -1,0 +1,2 @@
+char* getHeadHtml();
+char getFooterHtml();

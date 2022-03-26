@@ -1,5 +1,9 @@
 #include "coredoc.h"
+#include "html.h"
 #include <string.h>
+#include <stdbool.h>
+#include <dirent.h>
+#include <unistd.h>
 #include "utils.h"
 #include "markdown.h"
 #include <stdlib.h>
@@ -17,29 +21,23 @@ void buildProject(){
   printf("coredoc: starting project build...\n");
   printf("coredoc: loading coredoc_files.list...\n");
   // loop over every line in the coredoc_files.list file
-  FILE * fp;
-  char * line = NULL;
-  size_t len = 0;
-  ssize_t read;
-  
-  // open the file
-  fp = fopen("coredoc_files.list", "r");
-  if (fp == NULL) {
-      printf("Failed to read from coredoc_files.list\n");
-      exit(EXIT_FAILURE);
+  struct dirent *de;  // Pointer for directory entry
+  DIR *dr = opendir("src");
+  if (dr == NULL) {
+    printf("Failed to open src directory\n");
+    exit(1);
   }
-
-  while ((read = getline(&line, &len, fp)) != -1) {
-      line[strcspn(line, "\n")] = 0;
-      printf("coredoc: building file %s\n", line);
-      char* outputFile = str_replace(line, ".md", ".html");
-      markdownToHtml(line, outputFile);
-      printf("coredoc: built file to %s\n", outputFile);
+  char *fileName;
+  while ((de = readdir(dr)) != NULL) {
+    if (!strcmp(de->d_name, ".") || !strcmp(de->d_name, "..")){
+      // do nothing
+    } else {
+       fileName = de->d_name;
+       printf("coredoc: building file %s\n", fileName);
+       char* outputFile = str_replace(fileName, ".md", ".html");
+       markdownToHtml(str_merge("src/", fileName), outputFile, false);
+       printf("coredoc: built file to %s\n", outputFile);
+    }
   }
-  // close the file
-  fclose(fp);
-  if (line) {
-      // free memory
-      free(line);
-  }
+  closedir(dr);
 }

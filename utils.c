@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include "utils.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -47,6 +48,12 @@ char *str_replace(char *orig, char *rep, char *with) {
     }
     strcpy(tmp, orig);
     return result;
+}
+
+char* str_merge(char* first, char* second) {
+  char* result;
+  asprintf(&result, "%s%s", first, second);
+  return result;
 }
 
 // NOTE: Errors from a lsp about an undefined reference can be ignored below this line.
