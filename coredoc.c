@@ -10,6 +10,7 @@ void printHelp(){
   printf("Author: Interfiber<webmaster@interfiber.dev>\n");
   printf("Commands:\n");
   printf("   build        Build the current project\n");
+  printf("   version      Print version and build info\n");
 }
 
 void buildProject(){

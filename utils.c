@@ -1,5 +1,6 @@
 #include "utils.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 char *str_replace(char *orig, char *rep, char *with) {
@@ -46,4 +47,22 @@ char *str_replace(char *orig, char *rep, char *with) {
     }
     strcpy(tmp, orig);
     return result;
+}
+
+// NOTE: Errors from a lsp about an undefined reference can be ignored below this line.
+
+char* getVersion(){
+  return PACKAGE_VERSION;
+}
+
+char* getBugReportEmail(){
+  return PACKAGE_BUGREPORT;
+}
+
+char* getName(){
+  return PACKAGE_NAME;
+}
+
+char* getWebsite(){
+  return PACKAGE_URL;
 }
