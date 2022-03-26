@@ -30,7 +30,10 @@ void buildProject(){
 
   while ((read = getline(&line, &len, fp)) != -1) {
       line[strcspn(line, "\n")] = 0;
-      markdownToHtml(line, str_replace(line, ".md", ".html"));
+      printf("coredoc: building file %s\n", line);
+      char* outputFile = str_replace(line, ".md", ".html");
+      markdownToHtml(line, outputFile);
+      printf("coredoc: built file to %s\n", outputFile);
   }
   // close the file
   fclose(fp);
