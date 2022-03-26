@@ -1,5 +1,5 @@
 bin_PROGRAMS = coredoc
-coredoc_SOURCES = main.c coredoc.c markdown.c coredoc.h markdown.h
+coredoc_SOURCES = main.c coredoc.c markdown.c utils.c coredoc.h markdown.h utils.h
 coredoc_CFLAGS = -Wall $(LOWDOWN_CFLAGS)
 coredoc_LDADD = $(LOWDOWN_LIBS)
 

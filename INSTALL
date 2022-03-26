@@ -1,0 +1,25 @@
+--- Install requirments: ---
+  - lowdown
+  - pkg-config
+  - GNU autotools(automake, autoconf, etc...)
+
+--- Installing lowdown libs ---
+You can copy paste the following commands to install lowdown libraries
+
+git clone https://github.com/kristapsdz/lowdown
+cd lowdown
+./configure
+sudo make install_libs
+
+--- Installing coredoc ---
+Since lowdown installs its pkg-config file in /usr/local make sure to set you're pkg-config search path
+before building like below
+
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+Now build the program like below:
+
+./autogen
+./configure
+make
+sudo make install
