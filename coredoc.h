@@ -1,0 +1,2 @@
+void printHelp();
+void buildProject();
