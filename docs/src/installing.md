@@ -8,9 +8,7 @@
 ## Installing from source
 To install from source use the following command
 ```
-git clone https://github.com/Interfiber/coredoc.git ~/.coredoc &&
-cd ~/.coredoc &&
-sudo ln -s $PWD/coredoc /usr/bin/coredoc &&
+lua -e "$(curl -#L https://raw.githubusercontent.com/Interfiber/coredoc/main/installer.lua)"
 ```
 
 ## Installing lowdown
