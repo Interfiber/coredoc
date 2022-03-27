@@ -1,9 +1,0 @@
-#!/bin/sh
-rootpath=$(realpath $(dirname $0))
-
-# set require path
-reqpath_old=$(lua -e "print(package.path)")
-new_req_path="$reqpath_old;$rootpath/?.lua"
-export LUA_PATH=$new_req_path
-
-lua $rootpath/main.lua $@
