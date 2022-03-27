@@ -1,6 +1,0 @@
-#!/bin/sh
-
-echo "Running autoreconf..."
-autoreconf
-echo "Installing missing"
-automake --add-missing
