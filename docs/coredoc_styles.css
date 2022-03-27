@@ -1,0 +1,21 @@
+/* basic css */
+body {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+img {
+  border-radius: 2%;
+}
+
+a {
+  text-decoration: none;
+  color: #0366d6;
+}
+
+footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:90px;   /* Height of the footer */
+}

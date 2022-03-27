@@ -1,6 +1,6 @@
 local mod = {}
 
-function exists(file)
+local function exists(file)
    local ok, err, code = os.rename(file, file)
    if not ok then
       if code == 13 then
@@ -33,12 +33,22 @@ mod.buildSite = function ()
   for line in coredocFiles:lines() do
       FileTicker = FileTicker + 1
       print("compiling file "..line.."...")
-      if not exists(line) then
-        print("skipping file "..line..", as it does not exist") 
+      if not exists("src/"..line) then
+        print("skipping file "..line..", as it does not exist")
       else
-        mod.buildFile(line, "dst/"..line:gsub(".md", ".html"))
-        print("compiled file to "..line:gsub(".md", ".html"))
+        -- check if its a static image or something
+        if line:match("coredoc_static") then
+         print("copying static file...")
+         os.execute("cp src/"..line.." dst/"..line)
+       else
+          mod.buildFile("src/"..line, "dst/"..line:gsub(".md", ".html"))
+          print("compiled file to "..line:gsub(".md", ".html"))
+        end
       end
+  end
+  if exists("coredoc_styles.css") then
+    print("copying styles...")
+    os.execute("cp coredoc_styles.css dst/coredoc_styles.css")
   end
   if FileTicker == 0 or FileTicker == 1 then
     print("built "..FileTicker.." file")
@@ -62,7 +72,7 @@ end
 mod.getHeaderHtml = function ()
   local headerName = "coredoc_header.html"
   if exists(headerName) then
-    local headerFile = io.open(headerName, "r") 
+    local headerFile = io.open(headerName, "r")
     local headerData = headerFile:read("*all")
     headerFile:close()
     return headerData
